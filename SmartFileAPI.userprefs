@@ -1,0 +1,23 @@
+﻿<Properties>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|x86" ctype="Workspace" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="SmartFileAPI.cs" ctype="Workbench">
+    <Files>
+      <File FileName="Main.cs" Line="31" Column="2" />
+      <File FileName="SmartFileException.cs" Line="1" Column="1" />
+      <File FileName="SmartFileAPI.cs" Line="12" Column="44" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State expanded="True">
+          <Node name="SmartFileAPI" expanded="True">
+            <Node name="References" expanded="True" />
+            <Node name="SmartFileAPI.cs" selected="True" />
+          </Node>
+        </State>
+      </Pad>
+      <Pad Id="ClassPad">
+        <State expanded="True" selected="True" />
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+</Properties>
