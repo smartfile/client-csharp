@@ -1,6 +1,6 @@
-﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|x86" ctype="Workspace" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="SmartFileAPI.cs" ctype="Workbench">
+﻿<Properties GitUserInfo="UsingGIT">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|x86" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="SmartFileAPI.cs">
     <Files>
       <File FileName="Main.cs" Line="31" Column="2" />
       <File FileName="SmartFileException.cs" Line="1" Column="1" />
