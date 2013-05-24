@@ -282,8 +282,16 @@ namespace SmartFile
         public bool throttleWait;
         public Regex throttleRegex;
 
-        public Client(string url = API_URL, string version = API_VER, bool throttleWait = true)
+        public Client(string url = null, string version = API_VER, bool throttleWait = true)
         {
+			if (url == null)
+			{
+				url = Environment.GetEnvironmentVariable("SMARTFILE_API_URL");
+			}
+			if (url == null)
+			{
+				url = API_URL;
+			}
             this.url = url;
             this.version = version;
             this.throttleWait = throttleWait;
@@ -387,13 +395,13 @@ namespace SmartFile
         private string key;
         private string password;
 
-        public BasicClient(string key = null, string password = null, string url = Client.API_URL, string version = Client.API_VER, bool throttleWait = true)
+        public BasicClient(string key = null, string password = null, string url = null, string version = Client.API_VER, bool throttleWait = true)
         {
             if (key == null)
             {
                 key = Environment.GetEnvironmentVariable("SMARTFILE_API_KEY");
             }
-            if (key == null)
+            if (password == null)
             {
                 password = Environment.GetEnvironmentVariable("SMARTFILE_API_PASSWORD");
             }
