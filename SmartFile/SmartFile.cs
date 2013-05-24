@@ -84,7 +84,7 @@ namespace SmartFile
                     if (this._header == null)
                     {
                         this._header = UTF8Encoding.UTF8.GetBytes(
-                            string.Format("{0}\r\nContent-Disposition: form-data; name=\"{1}\"\r\n\r\n",
+                            string.Format("--{0}\r\nContent-Disposition: form-data; name=\"{1}\"\r\n\r\n",
                                       this.Boundary, this.Name));
                     }
                     return this._header;
@@ -127,7 +127,7 @@ namespace SmartFile
                     if (this._header == null)
                     {
                         this._header = UTF8Encoding.UTF8.GetBytes(
-                            string.Format("{0}\r\nContent-Disposition: form-data; name=\"{1}\"; filename=\"{2}\"\r\nContent-Type: {3}\r\n\r\n",
+                            string.Format("--{0}\r\nContent-Disposition: form-data; name=\"{1}\"; filename=\"{2}\"\r\nContent-Type: {3}\r\n\r\n",
                                       this.Boundary, this.Name, this.Data.Name, this.ContentType));
                     }
                     return this._header;
@@ -212,7 +212,7 @@ namespace SmartFile
                 items.Add(file);
                 length += file.Length;
             }
-            length += boundary.Length + 6;
+            length += boundary.Length + 8;
             request.ContentLength = length;
             // Now stream the data.
             //using (Stream requestStream = File.Create("c:\\Users\\bneely\\documents\\debug.txt"))
@@ -236,7 +236,7 @@ namespace SmartFile
                         byte[] itemData = UTF8Encoding.UTF8.GetBytes(item.Data);
                         requestStream.Write(itemData, 0, itemData.Length);
                     }
-                    byte[] end = UTF8Encoding.UTF8.GetBytes(string.Format("\r\n{0}--\r\n", boundary));
+                    byte[] end = UTF8Encoding.UTF8.GetBytes(string.Format("\r\n--{0}--\r\n", boundary));
                     requestStream.Write(end, 0, end.Length);
                 }
             }

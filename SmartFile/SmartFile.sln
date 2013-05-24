@@ -3,6 +3,8 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartFile", "SmartFile.csproj", "{0B790D9A-11A9-48F8-9617-5EF5C41E44C4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartFileTest", "..\SmartFileTest\SmartFileTest.csproj", "{AD24B829-82A0-4565-9E67-57514CD19FE4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x86 = Debug|x86
@@ -13,11 +15,15 @@ Global
 		{0B790D9A-11A9-48F8-9617-5EF5C41E44C4}.Debug|x86.Build.0 = Debug|x86
 		{0B790D9A-11A9-48F8-9617-5EF5C41E44C4}.Release|x86.ActiveCfg = Release|x86
 		{0B790D9A-11A9-48F8-9617-5EF5C41E44C4}.Release|x86.Build.0 = Release|x86
+		{AD24B829-82A0-4565-9E67-57514CD19FE4}.Debug|x86.ActiveCfg = Debug|x86
+		{AD24B829-82A0-4565-9E67-57514CD19FE4}.Debug|x86.Build.0 = Debug|x86
+		{AD24B829-82A0-4565-9E67-57514CD19FE4}.Release|x86.ActiveCfg = Release|x86
+		{AD24B829-82A0-4565-9E67-57514CD19FE4}.Release|x86.Build.0 = Release|x86
+	EndGlobalSection
+	GlobalSection(MonoDevelopProperties) = preSolution
+		StartupItem = ..\SmartFileTest\SmartFileTest.csproj
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(MonoDevelopProperties) = preSolution
-		StartupItem = SmartFile.csproj
 	EndGlobalSection
 EndGlobal
