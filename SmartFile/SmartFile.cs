@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using System.Web;
@@ -246,18 +247,29 @@ namespace SmartFile
         {
             // Find files, and move them to a separate handler.
             Hashtable files = new Hashtable();
+            List<string> keyNamesToRemove = new List<string>();
 
             foreach (string key in data.Keys)
             {
                 object obj = data[key];
+
                 if (obj.GetType() == typeof(FileInfo))
                 {
                     files[key] = obj;
-                    data.Remove(key);
-                    if (data.Keys.Count <= 0)
-                        break;
+                    //=====================
+                    //add keys to list that need
+                    //removed
+                    //=====================
+                    keyNamesToRemove.Add(key);
                 }
+
             }
+            //==========================
+            //remove the keys from data
+            //==========================
+            foreach (string k in keyNamesToRemove)
+                data.Remove(k);
+
             if (files.Count == 0)
             {
                 Util.HttpForm(request, data);
