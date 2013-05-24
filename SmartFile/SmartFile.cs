@@ -84,7 +84,7 @@ namespace SmartFile
                     if (this._header == null)
                     {
                         this._header = UTF8Encoding.UTF8.GetBytes(
-                            string.Format("{0}\r\nContent-Disposition: form-data; name=\"{1}\"\r\n\r\n",
+                            string.Format("--{0}\r\nContent-Disposition: form-data; name=\"{1}\"\r\n\r\n",
                                       this.Boundary, this.Name));
                     }
                     return this._header;
@@ -127,7 +127,7 @@ namespace SmartFile
                     if (this._header == null)
                     {
                         this._header = UTF8Encoding.UTF8.GetBytes(
-                            string.Format("{0}\r\nContent-Disposition: form-data; name=\"{1}\"; filename=\"{2}\"\r\nContent-Type: {3}\r\n\r\n",
+                            string.Format("--{0}\r\nContent-Disposition: form-data; name=\"{1}\"; filename=\"{2}\"\r\nContent-Type: {3}\r\n\r\n",
                                       this.Boundary, this.Name, this.Data.Name, this.ContentType));
                     }
                     return this._header;
@@ -212,7 +212,7 @@ namespace SmartFile
                 items.Add(file);
                 length += file.Length;
             }
-            length += boundary.Length + 6;
+            length += boundary.Length + 8;
             request.ContentLength = length;
             // Now stream the data.
             //using (Stream requestStream = File.Create("c:\\Users\\bneely\\documents\\debug.txt"))
@@ -236,7 +236,7 @@ namespace SmartFile
                         byte[] itemData = UTF8Encoding.UTF8.GetBytes(item.Data);
                         requestStream.Write(itemData, 0, itemData.Length);
                     }
-                    byte[] end = UTF8Encoding.UTF8.GetBytes(string.Format("\r\n{0}--\r\n", boundary));
+                    byte[] end = UTF8Encoding.UTF8.GetBytes(string.Format("\r\n--{0}--\r\n", boundary));
                     requestStream.Write(end, 0, end.Length);
                 }
             }
@@ -282,8 +282,16 @@ namespace SmartFile
         public bool throttleWait;
         public Regex throttleRegex;
 
-        public Client(string url = API_URL, string version = API_VER, bool throttleWait = true)
+        public Client(string url = null, string version = API_VER, bool throttleWait = true)
         {
+            if (url == null)
+            {
+                url = Environment.GetEnvironmentVariable("SMARTFILE_API_URL");
+            }
+            if (url == null)
+            {
+                url = API_URL;
+            }
             this.url = url;
             this.version = version;
             this.throttleWait = throttleWait;
@@ -387,13 +395,13 @@ namespace SmartFile
         private string key;
         private string password;
 
-        public BasicClient(string key = null, string password = null, string url = Client.API_URL, string version = Client.API_VER, bool throttleWait = true)
+        public BasicClient(string key = null, string password = null, string url = null, string version = Client.API_VER, bool throttleWait = true)
         {
             if (key == null)
             {
                 key = Environment.GetEnvironmentVariable("SMARTFILE_API_KEY");
             }
-            if (key == null)
+            if (password == null)
             {
                 password = Environment.GetEnvironmentVariable("SMARTFILE_API_PASSWORD");
             }
