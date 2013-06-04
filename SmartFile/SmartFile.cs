@@ -1,6 +1,6 @@
 using System;
-using System.Collections.Generic;
 using System.IO;
+using System.Collections.Generic;
 using System.Net;
 using System.Web;
 using System.Text;
@@ -85,7 +85,7 @@ namespace SmartFile
                     if (this._header == null)
                     {
                         this._header = UTF8Encoding.UTF8.GetBytes(
-                            string.Format("--{0}\r\nContent-Disposition: form-data; name=\"{1}\"\r\n\r\n",
+                            string.Format("{0}\r\nContent-Disposition: form-data; name=\"{1}\"\r\n\r\n",
                                       this.Boundary, this.Name));
                     }
                     return this._header;
@@ -127,8 +127,9 @@ namespace SmartFile
                 {
                     if (this._header == null)
                     {
+
                         this._header = UTF8Encoding.UTF8.GetBytes(
-                            string.Format("--{0}\r\nContent-Disposition: form-data; name=\"{1}\"; filename=\"{2}\"\r\nContent-Type: {3}\r\n\r\n",
+                            string.Format("{0}\r\nContent-Disposition: form-data; name=\"{1}\"; filename=\"{2}\"\r\nContent-Type: {3}\r\n\r\n",
                                       this.Boundary, this.Name, this.Data.Name, this.ContentType));
                     }
                     return this._header;
@@ -196,11 +197,17 @@ namespace SmartFile
             // We have files, so use the more complex multipart encoding.
             string boundary = string.Format("--{0}",
                                             DateTime.Now.Ticks.ToString("x"));
+            string nlBoundry = Environment.NewLine + boundary;
+            string endBoundry = string.Format(Environment.NewLine + "{0}--" + Environment.NewLine, boundary);
+
             request.ContentType = string.Format("multipart/form-data; boundary={0}",
-                                                 boundary);
+                                                 boundary.Replace("--", ""));
             ArrayList items = new ArrayList();
             // Determine the amount of data we will be sending
             long length = 0;
+            int x = 1;
+            bool addNewLine = false;
+            int addTolength = 4;
             foreach (string key in data.Keys)
             {
                 PostItem item = new PostItem(key, data[key].ToString(), boundary);
@@ -209,21 +216,39 @@ namespace SmartFile
             }
             foreach (string key in files.Keys)
             {
+                if (addNewLine)
+                {
+                    boundary = nlBoundry;
+                    addNewLine = false;
+                }
+                else
+                {
+                    if (files.Keys.Count > 1)
+                        addNewLine = true;
+                    else
+                    {
+                        addTolength = 6;
+                    }
+                }
+
                 PostFile file = new PostFile(key, (FileInfo)files[key], boundary);
                 items.Add(file);
                 length += file.Length;
             }
-            length += boundary.Length + 8;
+
+            length += boundary.Length + addTolength;
             request.ContentLength = length;
-            // Now stream the data.
-            //using (Stream requestStream = File.Create("c:\\Users\\bneely\\documents\\debug.txt"))
+
             using (Stream requestStream = request.GetRequestStream())
             {
+
                 foreach (PostItem item in items)
                 {
+
                     requestStream.Write(item.Header, 0, item.Header.Length);
                     if (item.GetType() == typeof(PostFile))
                     {
+
                         FileStream fileData = ((PostFile)item).OpenRead();
                         byte[] buffer = new byte[32768];
                         int read = 0;
@@ -237,8 +262,13 @@ namespace SmartFile
                         byte[] itemData = UTF8Encoding.UTF8.GetBytes(item.Data);
                         requestStream.Write(itemData, 0, itemData.Length);
                     }
-                    byte[] end = UTF8Encoding.UTF8.GetBytes(string.Format("\r\n--{0}--\r\n", boundary));
-                    requestStream.Write(end, 0, end.Length);
+                    if (files.Keys.Count == x)
+                    {
+                        byte[] end = UTF8Encoding.UTF8.GetBytes(endBoundry);
+                        requestStream.Write(end, 0, end.Length);
+                    }
+
+                    x++;
                 }
             }
         }
@@ -316,10 +346,10 @@ namespace SmartFile
             try
             {
                 if (data != null)
-                {
                     Util.HttpSendData(request, data);
-                }
-                response = request.GetResponse() as HttpWebResponse;
+
+                response = (HttpWebResponse)request.GetResponse();
+
             }
             catch (WebException e)
             {
