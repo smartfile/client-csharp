@@ -25,7 +25,8 @@ namespace SmartFileTest
 			String endpoint = args[1];
 
 			BasicClient api = new BasicClient();
-
+			
+			/* SmartFileTest.exe POST path/data file0= */
 			if (method == "POST" && endpoint == "path/data")
 			{
 				Hashtable p = new Hashtable();

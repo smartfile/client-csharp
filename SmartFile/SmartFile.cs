@@ -193,7 +193,7 @@ namespace SmartFile
         public static void HttpMultipart(HttpWebRequest request, Hashtable data, Hashtable files)
         {
             // We have files, so use the more complex multipart encoding.
-            string boundary = string.Format("--{0}",
+            string boundary = string.Format("{0}",
                                             DateTime.Now.Ticks.ToString("x"));
             request.ContentType = string.Format("multipart/form-data; boundary={0}",
                                                  boundary);
@@ -236,9 +236,9 @@ namespace SmartFile
                         byte[] itemData = UTF8Encoding.UTF8.GetBytes(item.Data);
                         requestStream.Write(itemData, 0, itemData.Length);
                     }
-                    byte[] end = UTF8Encoding.UTF8.GetBytes(string.Format("\r\n--{0}--\r\n", boundary));
-                    requestStream.Write(end, 0, end.Length);
                 }
+                byte[] end = UTF8Encoding.UTF8.GetBytes(string.Format("\r\n--{0}--\r\n", boundary));
+                requestStream.Write(end, 0, end.Length);
             }
         }
 
@@ -246,8 +246,10 @@ namespace SmartFile
         {
             // Find files, and move them to a separate handler.
             Hashtable files = new Hashtable();
-
-            foreach (string key in data.Keys)
+			string[] keys = new string[data.Keys.Count];
+			
+			data.Keys.CopyTo(keys, 0);
+            foreach (string key in keys)
             {
                 object obj = data[key];
                 if (obj.GetType() == typeof(FileInfo))
