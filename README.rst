@@ -1,6 +1,9 @@
-A [SmartFile](http://www.smartfile.com/) Open Source project. [Read more](http://www.smartfile.com/open-source.html) about how SmartFile uses and contributes to Open Source software.
+.. image:: https://d2xtrvzo9unrru.cloudfront.net/brands/smartfile/logo.png
+   :alt: SmartFile
 
-![SmartFile](http://www.smartfile.com/images/logo.jpg)
+A `SmartFile`_ Open Source project. `Read more`_ about how SmartFile
+uses and contributes to Open Source software.
+
 
 SmartFile API Client (C#)
 ====
@@ -13,3 +16,6 @@ This is a fully working API client for SmartFile. It allows you to interact with
 Contributors
 ----
  * Ben Timby <btimby@gmail.com>
+ 
+.. _SmartFile: http://www.smartfile.com/
+.. _Read more: http://www.smartfile.com/open-source.html
