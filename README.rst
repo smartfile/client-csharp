@@ -74,6 +74,51 @@ Create a directory
            }
        }
    }
+   
+   
+Create a link
+------------------
+.. code:: csharp
+
+   using System;
+   using System.IO;
+   using System.Web;
+   using System.Net;
+   using System.Collections;
+   
+   using SmartFile;
+   
+   namespace SmartFileTest
+   {
+       class MainClass
+       {
+           public static int Main(string[] args)
+           {
+               // Setup new SmartFile client
+               BasicClient api = new BasicClient("xxxxxxxxxx", "xxxxxxxxxxxx");
+   
+               // Data to send in POST request
+               Hashtable p = new Hashtable();
+               p.Add("path", "/Public/mvp.jpg");
+               p.Add("list", true);
+               p.Add("read", true);
+               p.Add("name", "Screenshot");
+   
+               // Create a link via POST request
+               HttpWebResponse r = api.Post("/link", null, p);
+   
+               // Display output on the console
+               using (var streamReader = new StreamReader(r.GetResponseStream()))
+               {
+                   var responseText = streamReader.ReadToEnd();
+                   Console.WriteLine(responseText);
+                   Console.ReadKey();
+               }
+   
+               return 0;
+           }
+       }
+   }
 
 Other endpoints can be found here: https://app.smartfile.com/api/
  
