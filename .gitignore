@@ -1,0 +1,15 @@
+.vs/
+
+Main.cs
+
+TextFile1.txt
+
+app.config
+
+bin/
+
+client-csharp.csproj
+client-csharp.csproj.user
+client-csharp.sln
+
+obj/

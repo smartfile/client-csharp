@@ -12,34 +12,30 @@ File transfers
 --------------
 .. code:: csharp
 
-   using System;
-   using System.IO;
-   using System.Web;
-   using System.Net;
-   using System.Collections;
-   
-   using SmartFile;
-   
-   namespace SmartFileTest
-   {
-       class MainClass
-       {
-           public static int Main (string[] args)
-           {
-               // Setup new SmartFile client
-               BasicClient api = new BasicClient();
-               
-               // Data to send in POST request
-               Hashtable p = new Hashtable();
-               p.Add("file0", new FileInfo("vacation09.jpg"));
-   
-               // Upload file to /vacation09.jpg
-               HttpWebResponse r = api.Post("/path/data", null, p);
-               
-               return 0;
-           }
-       }
-   }
+using System;
+using System.IO;
+using System.Web;
+using System.Net;
+using System.Collections;
+
+using SmartFile;
+
+namespace SmartFileTest
+{
+    class MainClass
+    {
+
+        public static int Main(string[] args)
+        {
+            // Setup new SmartFile client
+            BasicClient api = new BasicClient("*****", "*****");
+
+            HttpWebResponse r = api.Upload("MyFile.txt");
+
+            return 0;
+        }
+    }
+}
 
 
 Create a directory

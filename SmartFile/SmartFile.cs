@@ -7,6 +7,7 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using System.Collections;
 
+
 using SmartFile.Errors;
 
 namespace SmartFile
@@ -389,6 +390,13 @@ namespace SmartFile
         public HttpWebResponse Delete(string endpoint, object id = null, Hashtable data = null)
         {
             return this._Request("DELETE", endpoint, id, data: data);
+        }
+
+        public HttpWebResponse Upload(string filename)
+        {
+            Hashtable p = new Hashtable();
+            p.Add("file0", new FileInfo(filename));
+            return this.Post("/path/data/", null, p);
         }
     }
 
