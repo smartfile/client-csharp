@@ -1,12 +1,11 @@
 using System;
+using System.Collections;
 using System.IO;
 using System.Net;
-using System.Web;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
-using System.Collections;
-
+using System.Web;
 
 using SmartFile.Errors;
 
@@ -398,6 +397,15 @@ namespace SmartFile
             p.Add("file0", new FileInfo(filename));
             return this.Post("/path/data/", null, p);
         }
+
+        public HttpWebResponse MkDir(string directory)
+        {
+            Hashtable p = new Hashtable();
+            p.Add("path", directory);
+            return this.Post("/path/oper/mkdir/", null, p);
+        }
+
+
     }
 
     public class BasicClient : Client

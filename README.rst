@@ -30,6 +30,7 @@ File transfers
 				// Setup new SmartFile client
 				BasicClient api = new BasicClient("*****", "*****");
 
+				// Upload file named "MyFile.txt"
 				HttpWebResponse r = api.Upload("MyFile.txt");
 
 				return 0;
@@ -59,12 +60,8 @@ Create a directory
                // Setup new SmartFile client
                BasicClient api = new BasicClient();
                
-               // Data to send in POST request
-               Hashtable p = new Hashtable();
-               p.Add("path", "newdirectory");
-               
-               // Create new directory at /newdirectory
-               System.Net.WebResponse r = api.Post("/path/oper/mkdir/", null, p);
+               // Create new directory named "newDirectory"
+               HttpWebResponse r = api.MkDir("newDirectory");
    
                return 0;
            }
