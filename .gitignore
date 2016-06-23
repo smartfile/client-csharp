@@ -13,3 +13,11 @@ client-csharp.csproj.user
 client-csharp.sln
 
 obj/
+
+SmartFileTests/
+packages.config
+packages/
+
+SmartFileTest/Main.cs
+
+Class1.cs
