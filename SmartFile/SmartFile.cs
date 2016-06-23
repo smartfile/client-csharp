@@ -13,19 +13,21 @@ using RestSharp;
 namespace SmartFile
 {
 
-    public abstract class Client
+    public class Client : RestClient
     {
-
-        public static RestClient client = new RestClient("https://app.smartfile.com/api/2/");
+        // Constructor 
+        public Client(string baseUrl) : base(baseUrl)
+        {
+        }
 
         public static RestRequest Upload(string filename)
         {
-
             var request = new RestRequest("/path/data/", Method.POST);
             request.AddFile("file", filename);
 
             return request;
         }
+
         public static RestRequest Download(string downloadName)
         {
             var request = new RestRequest("/path/data/" + downloadName, Method.GET);

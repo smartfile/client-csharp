@@ -14,10 +14,7 @@ client-csharp.sln
 
 obj/
 
-SmartFileTests/
-packages.config
-packages/
-
 SmartFileTest/Main.cs
 
-Class1.cs
+packages/
+packages.config
