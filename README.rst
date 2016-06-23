@@ -19,7 +19,6 @@ Upload File
 	{
 		class MainClass
 		{
-
 			public static int Main(string[] args)
 			{
 				// Setup new SmartFile client
@@ -50,7 +49,6 @@ Download File
 	{
 		class MainClass
 		{
-
 			public static int Main(string[] args)
 			{
 				// Setup new SmartFile client
@@ -77,12 +75,10 @@ Move File
 	using RestSharp;
 	using RestSharp.Authenticators;
 
-
 	namespace SmartFile
 	{
 		class MainClass
 		{
-
 			public static int Main(string[] args)
 			{
 				// Setup new SmartFile client
@@ -112,7 +108,6 @@ Delete File
 	{
 		class MainClass
 		{
-
 			public static int Main(string[] args)
 			{
 				// Setup new SmartFile client
@@ -121,7 +116,6 @@ Delete File
 
 				// Delete
 				var request = Client.Delete("myPhoto.jpg");
-
 
 				IRestResponse response = client.Execute(request);
 				var content = response.Content; // raw content as string
