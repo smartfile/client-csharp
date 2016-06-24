@@ -18,3 +18,5 @@ SmartFileTest/Main.cs
 
 packages/
 packages.config
+
+EnvironmentVariables.cs
