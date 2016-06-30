@@ -15,7 +15,7 @@ namespace SmartFile
 
     public class Client : RestClient
     {
-        // Constructor 
+        // Constructor
         public Client(string baseUrl) : base(baseUrl)
         {
         }
@@ -44,7 +44,7 @@ namespace SmartFile
             return request;
         }
 
-        public static RestRequest Delete(string FileToBeDeleted)
+        public static RestRequest Remove(string FileToBeDeleted)
         {
             var request = new RestRequest("/path/oper/remove/", Method.POST);
             request.AddParameter("path", FileToBeDeleted);

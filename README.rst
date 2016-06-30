@@ -8,6 +8,16 @@ SmartFile API Client (C#)
 =========================
 This is a fully working API client for SmartFile. It allows you to interact with all objects within the SmartFile system via the REST API. This client library can be used as-is for your integration projects.
 
+Installation
+--------------
+via source code / GitHub.
+
+::
+
+    $ git clone https://github.com/smartfile/client-csharp.git smartfile
+
+More information is available at `GitHub <https://github.com/smartfile/client-php>`_
+
 Upload File
 --------------
 .. code:: csharp
@@ -66,8 +76,8 @@ Download File
 			}
 		}
 	}
-   
-   
+
+
 Move File
 ------------------
 .. code:: csharp
@@ -114,8 +124,8 @@ Delete File
 				var client = new RestClient("https://app.smartfile.com/api/2/");
 				client.Authenticator = new HttpBasicAuthenticator("**********", "**********");
 
-				// Delete
-				var request = Client.Delete("myPhoto.jpg");
+				// Delete file or path
+				var request = Client.Remove("myPhoto.jpg");
 
 				IRestResponse response = client.Execute(request);
 				var content = response.Content; // raw content as string
@@ -127,5 +137,5 @@ Delete File
 
 
 Other endpoints can be found here: https://app.smartfile.com/api/
- 
+
 .. _SmartFile: https://www.smartfile.com/
