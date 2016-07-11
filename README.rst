@@ -16,7 +16,7 @@ via source code / GitHub.
 
     $ git clone https://github.com/smartfile/client-csharp.git smartfile
 
-More information is available at `GitHub <https://github.com/smartfile/client-php>`_
+More information is available at `GitHub <https://github.com/smartfile/client-csharp>`_
 
 Upload File
 --------------
