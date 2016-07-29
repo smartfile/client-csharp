@@ -45,7 +45,6 @@ Upload Files
 
 
 You can also upload using the GetUploadRequest method, if you want to further customize your request.
-
 --------------
 .. code:: csharp
 
@@ -99,7 +98,6 @@ Download Files
 
 
 You can also download using the GetDownloadRequest method, if you want to further customize your request.
-
 ------------------
 .. code:: csharp
 
