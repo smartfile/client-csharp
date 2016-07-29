@@ -36,12 +36,36 @@ Upload File
 				client.Authenticator = new HttpBasicAuthenticator("**********", "**********");
 
 				// Upload
-				var request = Client.Upload("pathToFile");
+				var resp = Client.Upload(client, "pathToFile");
 
-				IRestResponse response = client.Execute(request);
-				var content = response.Content; // raw content as string
+                return 0;
+			}
+		}
+	}
 
-				return 0;
+
+You can also upload using the GetUploadRequest method, if you want to further customize your request.
+--------------
+.. code:: csharp
+
+	using RestSharp;
+	using RestSharp.Authenticators;
+
+	namespace SmartFile
+	{
+		class MainClass
+		{
+			public static int Main(string[] args)
+			{
+				// Setup new SmartFile client
+				var client = new RestClient("https://app.smartfile.com/api/2/");
+				client.Authenticator = new HttpBasicAuthenticator("**********", "**********");
+
+				// Upload
+				var request = Client.GetUploadRequest("pathToFile");
+				var response = client.Execute(request);
+
+                return 0;
 			}
 		}
 	}
