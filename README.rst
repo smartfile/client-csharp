@@ -116,7 +116,7 @@ You can also download using the GetDownloadRequest method, if you want to furthe
 				client.Authenticator = new HttpBasicAuthenticator("**********", "**********");
 
 				// Download
-				var request = Client.Download("myFile.pdf");
+				var request = Client.GetDownloadRequest("myFile.pdf");
 				client.DownloadData(request).SaveAs("pathToFileSaveLocation");
 
 				IRestResponse response = client.Execute(request);
@@ -146,7 +146,33 @@ Move File
 				client.Authenticator = new HttpBasicAuthenticator("**********", "**********");
 
 				// Move
-				var request = Client.Move("myFile.txt", "/newFolder/");
+				var request = Client.Move(client, "myPicture.jpg", "/myFolder/");
+
+				return 0;
+			}
+		}
+	}
+
+
+You can also download using the GetDownloadRequest method, if you want to further customize your request.
+
+.. code:: csharp
+
+	using RestSharp;
+	using RestSharp.Authenticators;
+
+	namespace SmartFile
+	{
+		class MainClass
+		{
+			public static int Main(string[] args)
+			{
+				// Setup new SmartFile client
+				var client = new RestClient("https://app.smartfile.com/api/2/");
+				client.Authenticator = new HttpBasicAuthenticator("**********", "**********");
+
+				// Move
+				var request = Client.GetMoveRequest("myFile.txt", "/newFolder/");
 
 				IRestResponse response = client.Execute(request);
 				var content = response.Content; // raw content as string
@@ -155,7 +181,6 @@ Move File
 			}
 		}
 	}
-
 
 Delete File
 ------------------
