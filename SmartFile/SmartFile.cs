@@ -67,12 +67,19 @@ namespace SmartFile
             return client.Execute(request);
         }
 
-        public static RestRequest Remove(string FileToBeDeleted)
+        public static RestRequest GetRemoveRequest(string FileToBeDeleted)
         {
             var request = new RestRequest("/path/oper/remove/", Method.POST);
             request.AddParameter("path", FileToBeDeleted);
 
             return request;
+        }
+
+        public static IRestResponse Remove(RestClient client, string FileToBeDeleted)
+        {
+            var request = GetRemoveRequest(FileToBeDeleted);
+
+            return client.Execute(request);
         }
     }
 }
