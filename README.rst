@@ -38,7 +38,7 @@ Upload Files
 				// Upload
 				var request = Client.Upload(client, "pathToFile");
 
-                return 0;
+				return 0;
 			}
 		}
 	}
@@ -65,7 +65,7 @@ You can also upload using the GetUploadRequest method, if you want to further cu
 				var request = Client.GetUploadRequest("pathToFile");
 				var response = client.Execute(request);
 
-                return 0;
+				return 0;
 			}
 		}
 	}
