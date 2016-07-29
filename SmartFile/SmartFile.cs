@@ -20,12 +20,27 @@ namespace SmartFile
         {
         }
 
-        public static RestRequest Upload(string filename)
+        public void DoRequest()
+        {
+            //var request = Client; 
+
+            //IRestResponse response = Client.Execute();
+            //var content = response.Content;
+        }
+
+        public static RestRequest GetUploadRequest(string filename)
         {
             var request = new RestRequest("/path/data/", Method.POST);
             request.AddFile("file", filename);
 
             return request;
+        }
+
+        public static IRestResponse Upload(RestClient client, string filename)
+        { 
+            var request = GetUploadRequest(filename);
+
+            return client.Execute(request);
         }
 
         public static RestRequest Download(string downloadName)
