@@ -51,13 +51,20 @@ namespace SmartFile
             return client.Execute(request);
         }
 
-        public static RestRequest Move(string sourceFile, string destinationFolder)
+        public static RestRequest GetMoveRequest(string sourceFile, string destinationFolder)
         {
             var request = new RestRequest("/path/oper/move/", Method.POST);
             request.AddParameter("src", sourceFile);
             request.AddParameter("dst", destinationFolder);
 
             return request;
+        }
+
+        public static IRestResponse Move(RestClient client, string sourceFile, string destinationFolder)
+        {
+            var request = GetMoveRequest(sourceFile, destinationFolder);
+
+            return client.Execute(request);
         }
 
         public static RestRequest Remove(string FileToBeDeleted)
