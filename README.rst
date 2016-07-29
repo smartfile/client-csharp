@@ -18,7 +18,7 @@ via source code / GitHub.
 
 More information is available at `GitHub <https://github.com/smartfile/client-csharp>`_
 
-Upload File
+Upload Files
 --------------
 .. code:: csharp
 
@@ -36,7 +36,7 @@ Upload File
 				client.Authenticator = new HttpBasicAuthenticator("**********", "**********");
 
 				// Upload
-				var resp = Client.Upload(client, "pathToFile");
+				var request = Client.Upload(client, "pathToFile");
 
                 return 0;
 			}
@@ -45,6 +45,7 @@ Upload File
 
 
 You can also upload using the GetUploadRequest method, if you want to further customize your request.
+
 --------------
 .. code:: csharp
 
@@ -71,7 +72,34 @@ You can also upload using the GetUploadRequest method, if you want to further cu
 	}
 
 
-Download File
+Download Files
+------------------
+.. code:: csharp
+
+	using RestSharp;
+	using RestSharp.Authenticators;
+
+	namespace SmartFile
+	{
+		class MainClass
+		{
+			public static int Main(string[] args)
+			{
+				// Setup new SmartFile client
+				var client = new RestClient("https://app.smartfile.com/api/2/");
+				client.Authenticator = new HttpBasicAuthenticator("**********", "**********");
+
+				// Download
+				var request = Client.Download(client, "myFile.txt", "pathToFileSaveLocation");
+
+				return 0;
+			}
+		}
+	}
+
+
+You can also download using the GetDownloadRequest method, if you want to further customize your request.
+
 ------------------
 .. code:: csharp
 
