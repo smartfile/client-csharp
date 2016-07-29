@@ -8,6 +8,7 @@ using System.Threading;
 using System.Web;
 
 using RestSharp;
+using RestSharp.Extensions;
 
 
 namespace SmartFile
@@ -35,11 +36,19 @@ namespace SmartFile
             return client.Execute(request);
         }
 
-        public static RestRequest Download(string downloadName)
+        public static RestRequest GetDownloadRequest(string downloadName)
         {
             var request = new RestRequest("/path/data/" + downloadName, Method.GET);
 
             return request;
+        }
+
+        public static IRestResponse Download(RestClient client, string downloadName, string downloadLocation)
+        {
+            var request = GetDownloadRequest(downloadName);
+            client.DownloadData(request).SaveAs(downloadLocation);
+
+            return client.Execute(request);
         }
 
         public static RestRequest Move(string sourceFile, string destinationFolder)
