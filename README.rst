@@ -154,7 +154,7 @@ Move Files
 	}
 
 
-You can also download using the GetDownloadRequest method, if you want to further customize your request.
+You can also download using the GetMoveRequest method, if you want to further customize your request.
 
 .. code:: csharp
 
@@ -209,7 +209,7 @@ Delete Files
 	}
 
 
-You can also download using the GetDownloadRequest method, if you want to further customize your request.
+You can also download using the GetRemoveRequest method, if you want to further customize your request.
 
 .. code:: csharp
 
