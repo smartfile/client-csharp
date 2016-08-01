@@ -36,7 +36,7 @@ Upload Files
 				client.Authenticator = new HttpBasicAuthenticator("**********", "**********");
 
 				// Upload
-				var request = Client.Upload(client, "pathToFile");
+				var response = Client.Upload(client, "pathToFile");
 
 				return 0;
 			}
@@ -89,7 +89,7 @@ Download Files
 				client.Authenticator = new HttpBasicAuthenticator("**********", "**********");
 
 				// Download
-				var request = Client.Download(client, "myFile.txt", "pathToFileSaveLocation");
+				var response = Client.Download(client, "myFile.txt", "pathToFileSaveLocation");
 
 				return 0;
 			}
@@ -146,7 +146,7 @@ Move Files
 				client.Authenticator = new HttpBasicAuthenticator("**********", "**********");
 
 				// Move
-				var request = Client.Move(client, "myPicture.jpg", "/myFolder/");
+				var response = Client.Move(client, "myPicture.jpg", "/myFolder/");
 
 				return 0;
 			}
@@ -201,7 +201,7 @@ Delete Files
 				client.Authenticator = new HttpBasicAuthenticator("**********", "**********");
 
 				// Delete file or path
-				var request = Client.Remove(client, "myFile.txt")
+				var response = Client.Remove(client, "myFile.txt")
 
 				return 0;
 			}
