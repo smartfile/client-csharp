@@ -241,3 +241,24 @@ You can also download using the GetRemoveRequest method, if you want to further 
 Other endpoints can be found here: https://app.smartfile.com/api/
 
 .. _SmartFile: https://www.smartfile.com/
+
+
+Running Tests
+------------------
+
+To run tests for the ClientTests.cs file:
+
+First, make an EnvironmentalVariables.cs file: 
+
+.. code:: csharp
+
+	namespace SmartFileTests
+	{
+		public static class EnvironmentalVariables
+		{
+			public static string API_KEY = "**********";
+			public static string API_PASS = "**********";
+		}
+	}
+
+Then, build SmartFileTests and run the tests through the Test Explorer.
