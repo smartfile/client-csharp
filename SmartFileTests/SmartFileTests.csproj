@@ -4,7 +4,7 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{02419AEA-CF88-46BB-8F38-1C5ADA23F987}</ProjectGuid>
-    <OutputType>Library</OutputType>
+    <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>SmartFileTests</RootNamespace>
     <AssemblyName>SmartFileTests</AssemblyName>
@@ -35,6 +35,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\SmartFile\packages\Newtonsoft.Json.9.0.1\lib\net40\Newtonsoft.Json.dll</HintPath>
@@ -59,6 +62,8 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="EnvironmentalVariables.cs" />
+    <Compile Include="Main.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SmartFile\ClientTests.cs" />
   </ItemGroup>
@@ -66,6 +71,10 @@
     <ProjectReference Include="..\client-csharp.csproj">
       <Project>{192314A1-4097-4D2A-A62F-9C409FB1250A}</Project>
       <Name>client-csharp</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SmartFile\SmartFile.csproj">
+      <Project>{0b790d9a-11a9-48f8-9617-5ef5c41e44c4}</Project>
+      <Name>SmartFile</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

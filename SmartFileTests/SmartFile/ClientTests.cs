@@ -1,31 +1,34 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 using System.IO;
 
 using Newtonsoft.Json.Linq;
 using RestSharp;
 using RestSharp.Authenticators;
-using RestSharp.Extensions;
 
-using client_csharp;
+using SmartFile;
 
-namespace SmartFile.Tests
+namespace SmartFileTests
 {
     [TestClass()]
     public class ClientTests
     {
+
+        public Client client = new Client("https://app.smartfile.com/api/2/");
+        public const string TESTFN = "TESTFN.txt";
+        public const string TESTFN2 = "/TESTFN2/";
+
         public void ConstructorTest()
         {
             // Checks constructors
-            var client = new Client("https://app.smartfile.com/api/2/");
-            client.Authenticator = new HttpBasicAuthenticator(EnvironmentVariables.API_KEY, EnvironmentVariables.API_PASS);
+            client.Authenticator = new HttpBasicAuthenticator(EnvironmentalVariables.API_KEY, EnvironmentalVariables.API_PASS);
         }
 
         public void CanConnectTest()
         {
 
             // Ping test to assure we can connect
-            var client = new Client("https://app.smartfile.com/api/2/");
-            client.Authenticator = new HttpBasicAuthenticator(EnvironmentVariables.API_KEY, EnvironmentVariables.API_PASS);
+            client.Authenticator = new HttpBasicAuthenticator(EnvironmentalVariables.API_KEY, EnvironmentalVariables.API_PASS);
 
             var request = new RestRequest("/ping/", Method.GET);
 
@@ -40,22 +43,36 @@ namespace SmartFile.Tests
             Assert.AreEqual("pong", ping);
         }
 
+        public void setUp()
+        {
+            // makes a directory for the tests.
+            var request = new RestRequest("/path/oper/mkdir/", Method.POST);
+            request.AddParameter("path", TESTFN2);
+            IRestResponse response = client.Execute(request);
+            var content = response.Content;
+        }
+
+        public void tearDown()
+        {
+            // removes the directory made for the tests
+            var request = new RestRequest("/path/oper/remove/", Method.POST);
+            request.AddParameter("path", TESTFN2);
+            IRestResponse response = client.Execute(request);
+            var content = response.Content;
+        }
+
         public void UploadTest()
         {
-            var client = new Client("http://app.smartfile.com/api/2/");
-            client.Authenticator = new HttpBasicAuthenticator(EnvironmentVariables.API_KEY, EnvironmentVariables.API_PASS);
+            client.Authenticator = new HttpBasicAuthenticator(EnvironmentalVariables.API_KEY, EnvironmentalVariables.API_PASS);
 
             // Get info from local file
-            FileInfo localFileInfo = new FileInfo(@LocalFile.MyTextFile);
+            FileInfo localFileInfo = new FileInfo(TESTFN);
             long localFileSize = localFileInfo.Length;
 
             // Uploads that file
-            var request = Client.Upload(LocalFile.MyTextFile);
+            var request = Client.Upload(client, TESTFN);
             // Checks info of file we just uploaded
-            var requestFileInfo = new RestRequest("/path/info/TextFile1.txt", Method.GET);
-
-            IRestResponse response = client.Execute(request);
-            var content = response.Content; // raw content as string
+            var requestFileInfo = new RestRequest("/path/info/" + TESTFN, Method.GET);
 
             IRestResponse responseFileInfo = client.Execute(requestFileInfo);
             var fileInfoContent = responseFileInfo.Content; // raw content as string
@@ -69,42 +86,35 @@ namespace SmartFile.Tests
 
         public void DownloadTest()
         {
-            var client = new Client("http://app.smartfile.com/api/2/");
-            client.Authenticator = new HttpBasicAuthenticator(EnvironmentVariables.API_KEY, EnvironmentVariables.API_PASS);
+            client.Authenticator = new HttpBasicAuthenticator(EnvironmentalVariables.API_KEY, EnvironmentalVariables.API_PASS);
 
             // Downloads file from SmartFile to a location other than the orginal local copy
-            var request = Client.Download("TextFile1.txt");
-            client.DownloadData(request).SaveAs(SaveLocation.MyTextFile);
-
-            IRestResponse response = client.Execute(request);
-            var content = response.Content;
+            var request = Client.Download(client, TESTFN, AppDomain.CurrentDomain.BaseDirectory + "\\TESTFNsave.txt");
 
             // Reads text from both files to compare and assure they are the same
-            string LocalFileText = File.ReadAllText(@LocalFile.MyTextFile);
-            string RemoteFileText = File.ReadAllText(SaveLocation.MyTextFile);
+            string LocalFileText = File.ReadAllText(TESTFN);
+            string RemoteFileText = File.ReadAllText(AppDomain.CurrentDomain.BaseDirectory + "\\TESTFNsave.txt");
 
             Assert.AreEqual(LocalFileText, RemoteFileText);
         }
 
         public void MoveTest()
         {
-            var client = new Client("http://app.smartfile.com/api/2/");
-            client.Authenticator = new HttpBasicAuthenticator(EnvironmentVariables.API_KEY, EnvironmentVariables.API_PASS);
+            client.Authenticator = new HttpBasicAuthenticator(EnvironmentalVariables.API_KEY, EnvironmentalVariables.API_PASS);
+
+            // Create new folder to move test file to
+
 
             // Moves file to a new location
-            var request = Client.Move("TextFile1.txt", "/newFolder/");
-
-            IRestResponse response = client.Execute(request);
-            var content = response.Content;
+            var request = Client.Move(client, TESTFN, TESTFN2);
         }
 
         public void DeleteTest()
         {
-            var client = new Client("http://app.smartfile.com/api/2/");
-            client.Authenticator = new HttpBasicAuthenticator(EnvironmentVariables.API_KEY, EnvironmentVariables.API_PASS);
+            client.Authenticator = new HttpBasicAuthenticator(EnvironmentalVariables.API_KEY, EnvironmentalVariables.API_PASS);
 
             // Deletes file from that new location
-            var request = Client.Delete("/newFolder/TextFile1.txt");
+            var request = Client.GetRemoveRequest("/TESTFN2/TESTFN.txt");
 
             IRestResponse response = client.Execute(request);
             var content = response.Content;
@@ -122,10 +132,12 @@ namespace SmartFile.Tests
         {
             ConstructorTest();
             CanConnectTest();
+            setUp();
             UploadTest();
             DownloadTest();
             MoveTest();
             DeleteTest();
+            tearDown();
         }
 
     }
