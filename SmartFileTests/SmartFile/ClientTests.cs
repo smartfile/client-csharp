@@ -89,11 +89,11 @@ namespace SmartFileTests
             client.Authenticator = new HttpBasicAuthenticator(EnvironmentalVariables.API_KEY, EnvironmentalVariables.API_PASS);
 
             // Downloads file from SmartFile to a location other than the orginal local copy
-            var request = Client.Download(client, TESTFN, AppDomain.CurrentDomain.BaseDirectory + "\\TESTFNsave.txt");
+            var request = Client.Download(client, TESTFN, Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "TESTFNsave.txt"));
 
             // Reads text from both files to compare and assure they are the same
             string LocalFileText = File.ReadAllText(TESTFN);
-            string RemoteFileText = File.ReadAllText(AppDomain.CurrentDomain.BaseDirectory + "\\TESTFNsave.txt");
+            string RemoteFileText = File.ReadAllText(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "TESTFNsave.txt"));
 
             Assert.AreEqual(LocalFileText, RemoteFileText);
         }
