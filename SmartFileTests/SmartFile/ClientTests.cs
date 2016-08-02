@@ -102,9 +102,6 @@ namespace SmartFileTests
         {
             client.Authenticator = new HttpBasicAuthenticator(EnvironmentalVariables.API_KEY, EnvironmentalVariables.API_PASS);
 
-            // Create new folder to move test file to
-
-
             // Moves file to a new location
             var request = Client.Move(client, TESTFN, TESTFN2);
         }
